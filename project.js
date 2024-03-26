@@ -3,7 +3,7 @@ const prompt = require("prompt-sync")();
 const ROWS = 3;
 const COLS = 3;
 
-const SYMBOL_COUNT = {
+const SYMBOLS_COUNT = {
   A: 2,
   B: 4,
   C: 6,
@@ -45,7 +45,7 @@ const getNumberOfLines = () => {
 
 const getBet = (balance, lines) => {
   while (true) {
-    const bet = prompt("Enter the total bet per line: ");
+    const bet = prompt("Enter the bet per line: ");
     const numberBet = parseFloat(bet);
 
     if (isNaN(numberBet) || numberBet <= 0 || numberBet > balance / lines) {
@@ -58,13 +58,13 @@ const getBet = (balance, lines) => {
 
 const spin = () => {
   const symbols = [];
-  for (const [symbol, count] of Object.entries(SYMBOL_COUNT)) {
+  for (const [symbol, count] of Object.entries(SYMBOLS_COUNT)) {
     for (let i = 0; i < count; i++) {
       symbols.push(symbol);
     }
   }
 
-  const reels = [[], [], []];
+  const reels = [];
   for (let i = 0; i < COLS; i++) {
     reels.push([]);
     const reelSymbols = [...symbols];
@@ -79,8 +79,36 @@ const spin = () => {
   return reels;
 };
 
-const reels = spin();
-console.log(reels);
+const transpose = (reels) => {
+  const rows = [];
+
+  for (let i = 0; i < ROWS; i++) {
+    rows.push([]);
+    for (let j = 0; j < COLS; j++) {
+      rows[i].push(reels[j][i]);
+    }
+  }
+
+  return rows;
+};
+
+const printRows = (rows) => {
+  for (const row of rows) {
+    let rowString = "";
+    for (const [i, symbol] of row.entries()) {
+      rowString += symbol;
+      if (i != row.length - 1) {
+        rowString += " | ";
+      }
+    }
+    console.log(rowString);
+  }
+};
+
 let balance = deposit();
 const numberOfLines = getNumberOfLines();
 const bet = getBet(balance, numberOfLines);
+const reels = spin();
+const rows = transpose(reels);
+
+printRows(rows);
