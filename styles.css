@@ -1,0 +1,39 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #f4f4f4;
+}
+
+.container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.input-group {
+  margin-bottom: 10px;
+}
+
+.reels {
+  margin-top: 20px;
+}
+
+.reels div {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.reels span {
+  font-size: 2rem;
+  margin: 0 5px;
+}
+
+.result {
+  margin-top: 20px;
+  font-weight: bold;
+}
